@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import getChannelInfo, { getPostsOfChannel } from "./helper";
+import getChannelInfo, { getPostsOfChannel, sendMessage } from "./helper";
 import style from "../../styles/Channel.module.css";
 import FullpageLoader from "../FullPageLoader";
 import Link from "next/link";
@@ -11,7 +11,7 @@ import getUserInfo from "../auth";
 
 const Channel = ({ channelId }) => {
   const [channedData, setChannelData] = useState({});
-  const [channedPost, setChannelPost] = useState([]);
+  const [channelPost, setChannelPost] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [newMessage, setNewMessage] = useState("");
   const [isJoined, setIsJoined] = useState(null);
@@ -36,6 +36,20 @@ const Channel = ({ channelId }) => {
     if ([...data.members, data.createdBy].includes(user.username)) {
       setIsJoined(true);
     }
+  };
+
+  const handleMessageChange = (e) => {
+    setNewMessage(e.target.value);
+  };
+
+  const handleSendMessage = () => {
+    if (newMessage.trim() === "") return;
+    sendMessage(channelId, newMessage).then((data) => {
+      setNewMessage("");
+      if (!data.error) {
+        setChannelPost([...channelPost, data.post]);
+      }
+    });
   };
 
   if (isLoading) {
@@ -83,7 +97,7 @@ const Channel = ({ channelId }) => {
         </div>
         <strong className="mt-4 mb-1 text-center text-purple">Message</strong>
         <div>
-          {channedPost.map((post, index) => (
+          {channelPost.map((post, index) => (
             <div className={style.message} key={index}>
               <div>
                 <b>
@@ -104,7 +118,14 @@ const Channel = ({ channelId }) => {
           <div className={style.join}>Join</div>
         ) : (
           <div className={style.newMessage}>
-            <textarea placeholder="Write Message..." />
+            <textarea
+              placeholder="Write Message..."
+              onChange={handleMessageChange}
+              value={newMessage}
+            />
+            <button className="btn" onClick={handleSendMessage}>
+              Send
+            </button>
           </div>
         )}
       </div>

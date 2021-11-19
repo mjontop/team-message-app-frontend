@@ -42,13 +42,17 @@
 }
 .newMessage {
   display: flex;
+  align-items: stretch;
 }
 
 .newMessage > textarea {
-  flex: 1;
+  flex: 10;
   margin: 0.1rem;
   border: 0.5px solid gray;
   resize: verticle;
   padding: 0.8rem;
-  margin-top: 0.5rem;
+}
+
+.newMessage > .btn {
+  flex: 1;
 }
