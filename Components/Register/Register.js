@@ -11,6 +11,7 @@ import registerHelper, {
 import parseJwt from "../../utils/validateJWT";
 import Link from "next/link";
 import { TextField } from "@material-ui/core";
+import getUserInfo from "../auth";
 
 const Register = () => {
   const router = useRouter();
@@ -83,8 +84,8 @@ const Register = () => {
         setUserInfo((prev) => ({ ...prev, isLoading: false }));
         return;
       }
-
-      window.location.replace("/");
+      const { user } = getUserInfo();
+      window.location.replace(`/${user.username}`);
     });
   };
 

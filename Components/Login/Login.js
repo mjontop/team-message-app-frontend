@@ -7,6 +7,7 @@ import Loader from "../Loader";
 import loginHelper from "./loginHelper";
 import parseJwt from "../../utils/validateJWT";
 import Link from "next/link";
+import getUserInfo from "../auth";
 
 const SignIn = () => {
   const router = useRouter();
@@ -57,8 +58,8 @@ const SignIn = () => {
         setUserInfo((prev) => ({ ...prev, isLoading: false }));
         return;
       }
-
-      window.location.replace("/");
+      const { user } = getUserInfo();
+      window.location.replace(`/${user.username}`);
     });
   };
 
