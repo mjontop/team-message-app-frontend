@@ -7,17 +7,21 @@ import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import getUserInfo from "../auth";
 
 const Channel = ({ channelId }) => {
   const [channedData, setChannelData] = useState({});
   const [channedPost, setChannelPost] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [newMessage, setNewMessage] = useState("");
+  const [isJoined, setIsJoined] = useState(null);
 
   useEffect(() => {
     if (!!channelId) {
       setIsLoading(true);
       getChannelInfo(channelId).then((data) => {
         setChannelData(data.channel);
+        handleCheckifJoined(data.channel);
         setIsLoading(false);
       });
       getPostsOfChannel(channelId).then((data) => {
@@ -26,6 +30,14 @@ const Channel = ({ channelId }) => {
       });
     }
   }, [channelId]);
+
+  const handleCheckifJoined = (data) => {
+    const { user } = getUserInfo();
+    if ([...data.members, data.createdBy].includes(user.username)) {
+      setIsJoined(true);
+    }
+  };
+
   if (isLoading) {
     return <FullpageLoader />;
   }
@@ -59,8 +71,8 @@ const Channel = ({ channelId }) => {
             <AccordionDetails>
               {channedData.members && channedData.members.length > 0 ? (
                 <ul>
-                  {channedData.members.map((member) => (
-                    <li>{member}</li>
+                  {channedData.members.map((member, index) => (
+                    <li key={index}>{member}</li>
                   ))}
                 </ul>
               ) : (
@@ -71,8 +83,8 @@ const Channel = ({ channelId }) => {
         </div>
         <strong className="mt-4 mb-1 text-center text-purple">Message</strong>
         <div>
-          {channedPost.map((post) => (
-            <div className={style.message}>
+          {channedPost.map((post, index) => (
+            <div className={style.message} key={index}>
               <div>
                 <b>
                   <Link href={`/${post.postedBy}`}>{post.postedBy}</Link>
@@ -87,6 +99,14 @@ const Channel = ({ channelId }) => {
             </div>
           ))}
         </div>
+        <hr />
+        {!isJoined ? (
+          <div className={style.join}>Join</div>
+        ) : (
+          <div className={style.newMessage}>
+            <textarea placeholder="Write Message..." />
+          </div>
+        )}
       </div>
     </main>
   );
