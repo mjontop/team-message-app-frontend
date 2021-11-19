@@ -26,6 +26,19 @@ export const getPostsOfChannel = async (channelId) => {
   }
 };
 
+export const joinChannel = async (channelId) => {
+  try {
+    const { data } = await Axios.post(`channel/joinChannel/${channelId}`);
+    return data;
+  } catch (ex) {
+    console.log("Error in Creating Posts");
+    return {
+      error: true,
+      data: null,
+    };
+  }
+};
+
 export const sendMessage = async (channelId, message) => {
   try {
     const { data } = await Axios.post(`post/createPost`, {
@@ -34,7 +47,7 @@ export const sendMessage = async (channelId, message) => {
     });
     return data;
   } catch (ex) {
-    console.log("Error in Getting Posts");
+    console.log("Error in sending message");
     return {
       error: true,
       data: null,

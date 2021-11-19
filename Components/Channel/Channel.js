@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import getChannelInfo, { getPostsOfChannel, sendMessage } from "./helper";
+import getChannelInfo, {
+  getPostsOfChannel,
+  joinChannel,
+  sendMessage,
+} from "./helper";
 import style from "../../styles/Channel.module.css";
 import FullpageLoader from "../FullPageLoader";
 import Link from "next/link";
@@ -52,6 +56,14 @@ const Channel = ({ channelId }) => {
     });
   };
 
+  const handleJoinChannel = () => {
+    joinChannel(channelId).then((data) => {
+      if (!data.error) {
+        window.location.reload();
+      }
+    });
+  };
+
   if (isLoading) {
     return <FullpageLoader />;
   }
@@ -85,6 +97,7 @@ const Channel = ({ channelId }) => {
             <AccordionDetails>
               {channedData.members && channedData.members.length > 0 ? (
                 <ul>
+                  <li>{channedData.createdBy}</li>
                   {channedData.members.map((member, index) => (
                     <li key={index}>{member}</li>
                   ))}
@@ -115,7 +128,9 @@ const Channel = ({ channelId }) => {
         </div>
         <hr />
         {!isJoined ? (
-          <div className={style.join}>Join</div>
+          <div className={style.join} onClick={handleJoinChannel}>
+            Join
+          </div>
         ) : (
           <div className={style.newMessage}>
             <textarea
