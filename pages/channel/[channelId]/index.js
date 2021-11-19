@@ -1,15 +1,15 @@
 import { useRouter } from "next/dist/client/router";
 import React from "react";
-import Profile from "../../../Components/Profile/Profile";
+import Channel from "../../../Components/Channel/Channel";
 
-const UserProfile = () => {
+const ChannelPage = () => {
   const router = useRouter();
-  const username = router.query.username;
+  const channelId = router.query.channelId;
   return (
     <>
-      <Profile username={username} />
+      <Channel channelId={channelId} />
     </>
   );
 };
 
-export default UserProfile;
+export default ChannelPage;

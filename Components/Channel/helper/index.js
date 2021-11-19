@@ -1,8 +1,8 @@
 import Axios from "../../../utils/Axios";
 
-const getUsers = async (username) => {
+const getChannelInfo = async (channelId) => {
   try {
-    const { data } = await Axios.get(`/user/getUser/${username}`);
+    const { data } = await Axios.get(`channel/getChannel/${channelId}`);
     return data;
   } catch (ex) {
     console.log("Error in Getting email");
@@ -13,4 +13,4 @@ const getUsers = async (username) => {
   }
 };
 
-export default getUsers;
+export default getChannelInfo;
