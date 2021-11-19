@@ -14,6 +14,11 @@ const HomePage = () => {
     const userInfo = getUserInfo();
     setIsLoggedIn(userInfo.isLoggedIn);
     setUser(userInfo.user);
+    if (userInfo.isLoggedIn) {
+      router.push(`/${userInfo.user.username}`);
+    } else {
+      router.push(`/accounts/register`);
+    }
   }, []);
 
   return (

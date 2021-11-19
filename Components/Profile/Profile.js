@@ -69,7 +69,7 @@ const Profile = ({ username }) => {
             <hr />
             <div className={style.channel}>
               <div>
-                <b>Channels</b>
+                <b>Joined Channels</b>
                 {userData.data && userData.data.channels && (
                   <ol>
                     {userData.data.channels.map((channel) => (
@@ -82,35 +82,37 @@ const Profile = ({ username }) => {
                   </ol>
                 )}
               </div>
-              <div className="d-flex flex-column align-items-center">
-                <input
-                  value={newChannelName.name}
-                  onChange={(e) => {
-                    setNewChannelName({
-                      ...newChannelName,
-                      name: e.target.value,
-                    });
-                  }}
-                  placeholder="Channel Name"
-                />
-                <textarea
-                  className="w-100 my-2"
-                  onChange={(e) => {
-                    setNewChannelName({
-                      ...newChannelName,
-                      description: e.target.value,
-                    });
-                  }}
-                  value={newChannelName.description}
-                  placeholder="Channel Desc..."
-                />
-                <span
-                  className="btn btn-ouline-danger mt-1 w-100"
-                  onClick={handleCreateNewChannel}
-                >
-                  Create New Channel <AddOutlined />
-                </span>
-              </div>
+              {isSameUser && (
+                <div className="d-flex flex-column align-items-center">
+                  <input
+                    value={newChannelName.name}
+                    onChange={(e) => {
+                      setNewChannelName({
+                        ...newChannelName,
+                        name: e.target.value,
+                      });
+                    }}
+                    placeholder="Channel Name"
+                  />
+                  <textarea
+                    className="w-100 my-2"
+                    onChange={(e) => {
+                      setNewChannelName({
+                        ...newChannelName,
+                        description: e.target.value,
+                      });
+                    }}
+                    value={newChannelName.description}
+                    placeholder="Channel Desc..."
+                  />
+                  <span
+                    className="btn btn-ouline-danger mt-1 w-100"
+                    onClick={handleCreateNewChannel}
+                  >
+                    Create New Channel <AddOutlined />
+                  </span>
+                </div>
+              )}
             </div>
           </div>
         ) : (
