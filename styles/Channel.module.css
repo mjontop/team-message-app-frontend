@@ -21,3 +21,10 @@
 .accordin {
   margin-top: 0.2rem;
 }
+.message {
+  display: flex;
+  justify-content: space-between;
+}
+.message > div > small {
+  font-size: 0.7rem;
+}

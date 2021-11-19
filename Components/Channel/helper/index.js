@@ -5,7 +5,7 @@ const getChannelInfo = async (channelId) => {
     const { data } = await Axios.get(`channel/getChannel/${channelId}`);
     return data;
   } catch (ex) {
-    console.log("Error in Getting email");
+    console.log("Error in Getting Channel");
     return {
       error: true,
       data: null,
@@ -13,4 +13,18 @@ const getChannelInfo = async (channelId) => {
   }
 };
 
+export const getPostsOfChannel = async (channelId) => {
+  try {
+    const { data } = await Axios.get(`post/${channelId}`);
+    return data;
+  } catch (ex) {
+    console.log("Error in Getting Posts");
+    return {
+      error: true,
+      data: null,
+    };
+  }
+};
+
+// {{url}}/post/61976b64809f1c93da7bbd72
 export default getChannelInfo;
