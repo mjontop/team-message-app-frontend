@@ -1,0 +1,55 @@
+.container {
+  width: max(60%, 400px);
+
+  background: #efefef;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 77px 55px 33px;
+  flex: 0.2;
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
+  -o-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
+  -ms-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.login_body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.login_inputs {
+  flex: 5;
+  text-align: center;
+}
+
+.login_btn {
+  flex: 1;
+  text-align: center;
+}
+.login_btn > button {
+  width: 70% !important;
+  border-radius: 10rem !important;
+  box-shadow: 6px 6px 12px #747474, -6px -6px 12px #ffffff;
+}
+
+.login_body > p {
+  flex: 1;
+  text-align: center;
+}
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.footer_btn {
+  margin-left: 1rem;
+  border-radius: 10rem !important;
+  box-shadow: 6px 6px 12px #747474, -6px -6px 12px #ffffff;
+  padding: 0.1rem 1rem;
+}

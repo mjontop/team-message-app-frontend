@@ -1,0 +1,56 @@
+.header {
+  display: flex;
+  flex: 1;
+  width: 100%;
+}
+
+.main {
+  max-width: max(40%, 400px);
+}
+
+.new_posts {
+  flex: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.posts_Items {
+  min-width: 10rem;
+  min-height: 15.7rem;
+  border: 1px solid red;
+}
+
+.profilePic {
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.profilePic > div > img {
+  box-shadow: 0 0 10px #383838;
+}
+
+.userStats {
+  flex: 1.5;
+  display: flex;
+  flex-direction: column;
+  padding: 0.2rem 0;
+}
+.user_name_row {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 0.2rem 0;
+}
+
+.stats_row {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 0.2rem 0;
+}
+.name_bio_row {
+  flex: 2;
+}
