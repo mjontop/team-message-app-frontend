@@ -56,16 +56,6 @@ hr {
   align-items: center;
 }
 
-.centered-div {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-.circle {
-  border-radius: 50% !important;
-}
-
 .btn {
   background-color: #9f2bc1 !important;
   border: none !important;
@@ -73,9 +63,6 @@ hr {
   color: #fff !important;
   border-radius: 0.5rem !important;
   padding: 0.4rem 0.8rem;
-}
-.btn:focus {
-  outline: none;
 }
 
 .text-purple {

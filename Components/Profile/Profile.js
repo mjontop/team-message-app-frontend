@@ -6,6 +6,7 @@ import { useRouter } from "next/dist/client/router";
 import getUserInfo from "../auth";
 import getUsers from "./helper/ProfileHelper";
 import Link from "next/link";
+import { AddOutlined } from "@material-ui/icons";
 
 const Profile = ({ username }) => {
   const [userData, setUserData] = useState({ data: {}, isLoading: false });
@@ -37,27 +38,44 @@ const Profile = ({ username }) => {
   return (
     <main className={`main`}>
       <div className={style.header}>
-        Hello
         {!isLoading ? (
-          <div className={style.userStats}>
-            <div className={style.user_name_row}>
-              <div className="px-2 fs-3">
-                <strong>{username}</strong>
+          <div>
+            <div>
+              <div className="fs-3">
+                Hello, <strong>{username}</strong>
+                {isSameUser && (
+                  <button
+                    className="btn btn-danger mx-3"
+                    onClick={handleLogout}
+                  >
+                    Log Out
+                  </button>
+                )}
               </div>
-              {isSameUser && <button onClick={handleLogout}>Log Out</button>}
             </div>
-            <h2>Channels</h2>
-            {userData.data && userData.data.channels && (
-              <ol>
-                {userData.data.channels.map((channel) => (
-                  <li>
-                    <Link href={`/channel/${channel._id}`}>
-                      {JSON.stringify(channel.name)}
-                    </Link>
-                  </li>
-                ))}
-              </ol>
-            )}
+            <hr />
+            <div className={style.channel}>
+              <div>
+                <b>Channels</b>
+                {userData.data && userData.data.channels && (
+                  <ol>
+                    {userData.data.channels.map((channel) => (
+                      <li>
+                        <Link href={`/channel/${channel._id}`}>
+                          {channel.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ol>
+                )}
+              </div>
+              <div className="d-flex flex-column align-items-center">
+                <input />
+                <span className="btn btn-ouline-danger mt-1">
+                  Create New Channel <AddOutlined />
+                </span>
+              </div>
+            </div>
           </div>
         ) : (
           <FullPageLoader />
