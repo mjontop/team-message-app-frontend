@@ -32,14 +32,6 @@ Start the server
   npm run dev
 ```
 
-
-## Environment Variables
-
-To run this project, you will need to add the following environment variables to your .env file
-
-`Database url` : `any mongoDB Database url`
-
-
 ## Authors
 
 - Manikant Jha [@mjontop](https://github.com/mjontop)
