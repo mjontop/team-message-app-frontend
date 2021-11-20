@@ -10,7 +10,12 @@
   max-width: max(40%, 400px);
 }
 
-.channel{
+.channel {
   display: flex;
   justify-content: space-between;
+}
+.channel_new_grp {
+  display: flex;
+  flex-direction: column;
+  
 }

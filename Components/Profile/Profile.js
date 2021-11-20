@@ -53,18 +53,18 @@ const Profile = ({ username }) => {
       <div className={style.header}>
         {!isLoading ? (
           <div>
-            <div>
-              <div className="fs-3">
+            <div className="d-flex justify-content-between">
+              <span className="fs-3">
                 Hello, <strong>{username}</strong>
-                {isSameUser && (
-                  <button
-                    className="btn btn-danger mx-3"
-                    onClick={handleLogout}
-                  >
-                    Log Out
-                  </button>
-                )}
-              </div>
+              </span>
+              {isSameUser && (
+                <button
+                  className="btn btn-danger mx-3 float-right"
+                  onClick={handleLogout}
+                >
+                  Log Out
+                </button>
+              )}
             </div>
             <hr />
             <div className={style.channel}>
@@ -72,8 +72,8 @@ const Profile = ({ username }) => {
                 <b>Joined Channels</b>
                 {userData.data && userData.data.channels && (
                   <ol>
-                    {userData.data.channels.map((channel) => (
-                      <li>
+                    {userData.data.channels.map((channel, index) => (
+                      <li key={index}>
                         <Link href={`/channel/${channel._id}`}>
                           {channel.name}
                         </Link>
@@ -83,7 +83,7 @@ const Profile = ({ username }) => {
                 )}
               </div>
               {isSameUser && (
-                <div className="d-flex flex-column align-items-center">
+                <div className={style.channel_new_grp}>
                   <input
                     value={newChannelName.name}
                     onChange={(e) => {
@@ -105,12 +105,12 @@ const Profile = ({ username }) => {
                     value={newChannelName.description}
                     placeholder="Channel Desc..."
                   />
-                  <span
-                    className="btn btn-ouline-danger mt-1 w-100"
+                  <button
+                    className="btn-new outline white-purple"
                     onClick={handleCreateNewChannel}
                   >
                     Create New Channel <AddOutlined />
-                  </span>
+                  </button>
                 </div>
               )}
             </div>

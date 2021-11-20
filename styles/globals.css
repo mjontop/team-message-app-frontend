@@ -65,6 +65,58 @@ hr {
   padding: 0.4rem 0.8rem;
 }
 
+.btn-new {
+  cursor: pointer;
+  /* outline: none; */
+}
+.btn-new.outline {
+  position: relative;
+  z-index: 3;
+  background: transparent;
+  color: #664e96;
+  font-size: 14px;
+  border-color: #664e96;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 22px;
+  padding: 10px 40px;
+  text-transform: uppercase;
+  transition: all 0.2s linear;
+}
+
+.btn-new.outline:hover {
+  color: white;
+  background: #1172c4;
+  border-color: white;
+  transition: all 0.2s linear;
+}
+.btn-new.outline:active {
+  border-radius: 22px;
+}
+
+.btn-new.purple-white {
+  font-weight: 700;
+  color: #664e96;
+  border-color: #664e96;
+  background: transparent;
+}
+.btn-new.purple-white:hover {
+  color: white;
+  background: #664e96;
+  border-color: #664e96;
+}
+.btn-new.white-purple {
+  font-weight: 700;
+  color: #664e96;
+
+  background: white;
+}
+.btn-new.white-purple:hover {
+  color: white;
+  background: #664e96;
+  border-color: white;
+}
+
 .text-purple {
   color: #9f2bc1;
 }

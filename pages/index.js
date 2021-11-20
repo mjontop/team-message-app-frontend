@@ -2,6 +2,8 @@ import { useRouter } from "next/dist/client/router";
 import React, { useEffect, useState } from "react";
 import getUserInfo from "../Components/auth";
 import Link from "next/link";
+import FullPageLoader from "../Components/FullPageLoader";
+
 const HomePage = () => {
   const [user, setUser] = useState({
     username: "",
@@ -21,26 +23,7 @@ const HomePage = () => {
     }
   }, []);
 
-  return (
-    <>
-      Hello
-      {isLoggedIn ? (
-        <Link href={`/${user.username}`}>
-          <a>{user.username}</a>
-        </Link>
-      ) : (
-        <>
-          <Link href={`/accounts/login`}>
-            <a>Login</a>
-          </Link>
-          OR
-          <Link href={`/accounts/register`}>
-            <a>Register</a>
-          </Link>
-        </>
-      )}
-    </>
-  );
+  return <FullPageLoader />;
 };
 
 export default HomePage;
