@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import style from "../../styles/Profile.module.css";
 import FullPageLoader from "../FullPageLoader";
-
 import getUserInfo from "../auth";
 import getUsers, { createNewChannel } from "./helper/ProfileHelper";
 import Link from "next/link";
-import { AddOutlined } from "@material-ui/icons";
+import { AddOutlined, ExitToAppRounded } from "@material-ui/icons";
 import { useRouter } from "next/dist/client/router";
+import { TextField } from "@material-ui/core";
 
 const Profile = ({ username }) => {
   const [userData, setUserData] = useState({ data: {}, isLoading: false });
@@ -49,7 +49,7 @@ const Profile = ({ username }) => {
   };
 
   return (
-    <main className={`main`}>
+    <main className="main">
       <div className={style.header}>
         {!isLoading ? (
           <div>
@@ -62,7 +62,7 @@ const Profile = ({ username }) => {
                   className="btn btn-danger mx-3 float-right"
                   onClick={handleLogout}
                 >
-                  Log Out
+                  Log Out <ExitToAppRounded />
                 </button>
               )}
             </div>
@@ -84,7 +84,9 @@ const Profile = ({ username }) => {
               </div>
               {isSameUser && (
                 <div className={style.channel_new_grp}>
-                  <input
+                  <TextField
+                    label="Channel Name"
+                    variant="filled"
                     value={newChannelName.name}
                     onChange={(e) => {
                       setNewChannelName({
@@ -92,9 +94,25 @@ const Profile = ({ username }) => {
                         name: e.target.value,
                       });
                     }}
-                    placeholder="Channel Name"
                   />
-                  <textarea
+
+                  <TextField
+                    label="Description"
+                    variant="filled"
+                    multiline
+                    onChange={(e) => {
+                      setNewChannelName({
+                        ...newChannelName,
+                        description: e.target.value,
+                      });
+                    }}
+                    value={newChannelName.description}
+                    minRows={2}
+                    className="my-2"
+                  />
+
+                  {/* <textarea
+                    
                     className="w-100 my-2"
                     onChange={(e) => {
                       setNewChannelName({
@@ -104,7 +122,7 @@ const Profile = ({ username }) => {
                     }}
                     value={newChannelName.description}
                     placeholder="Channel Desc..."
-                  />
+                  /> */}
                   <button
                     className="btn-new outline white-purple"
                     onClick={handleCreateNewChannel}
