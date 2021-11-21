@@ -1,9 +1,15 @@
-.header {
+.container {
   display: flex;
   flex: 1;
   width: 100%;
   flex-direction: column;
   justify-content: center;
+}
+
+.content {
+  box-shadow: 0 0 20px gray;
+  padding: 1rem;
+  border-radius: 1rem;
 }
 
 .main {
@@ -17,5 +23,29 @@
 .channel_new_grp {
   display: flex;
   flex-direction: column;
-  
+}
+
+.channel > div > div > div > span > a {
+  color: #664e96 !important;
+  text-decoration: none !important;
+  font-size: 1.2rem;
+}
+.joined_channel_item {
+  display: flex;
+  justify-content: space-evenly;
+}
+.joined_channel_item > span {
+  flex: 1;
+  text-align: center;
+}
+
+.joined_channel_item > span:first-child {
+  font-weight: bold;
+  color: #664e96;
+  font-size: 1.5rem;
+}
+
+.joined_channel_grp {
+  display: flex;
+  flex-direction: column;
 }

@@ -50,36 +50,45 @@ const Profile = ({ username }) => {
 
   return (
     <main className="main">
-      <div className={style.header}>
+      <div className={style.container}>
         {!isLoading ? (
-          <div>
+          <div className={style.content}>
             <div className="d-flex justify-content-between">
               <span className="fs-3">
                 Hello, <strong>{username}</strong>
               </span>
               {isSameUser && (
                 <button
-                  className="btn btn-danger mx-3 float-right"
+                  className="btn-new purple-white px-3"
                   onClick={handleLogout}
                 >
-                  Log Out <ExitToAppRounded />
+                  <span>Log Out</span> <ExitToAppRounded />
                 </button>
               )}
             </div>
             <hr />
             <div className={style.channel}>
               <div>
-                <b>Joined Channels</b>
+                <b>
+                  Joined Channels (
+                  {userData.data &&
+                    userData.data.channels &&
+                    userData.data.channels.length}
+                  )
+                </b>
                 {userData.data && userData.data.channels && (
-                  <ol>
+                  <div className={style.joined_channel_grp}>
                     {userData.data.channels.map((channel, index) => (
-                      <li key={index}>
-                        <Link href={`/channel/${channel._id}`}>
-                          {channel.name}
-                        </Link>
-                      </li>
+                      <div key={index} className={style.joined_channel_item}>
+                        <span>‣ </span>
+                        <span className="centered">
+                          <Link href={`/channel/${channel._id}`}>
+                            {channel.name}
+                          </Link>
+                        </span>
+                      </div>
                     ))}
-                  </ol>
+                  </div>
                 )}
               </div>
               {isSameUser && (
@@ -111,18 +120,6 @@ const Profile = ({ username }) => {
                     className="my-2"
                   />
 
-                  {/* <textarea
-                    
-                    className="w-100 my-2"
-                    onChange={(e) => {
-                      setNewChannelName({
-                        ...newChannelName,
-                        description: e.target.value,
-                      });
-                    }}
-                    value={newChannelName.description}
-                    placeholder="Channel Desc..."
-                  /> */}
                   <button
                     className="btn-new outline white-purple"
                     onClick={handleCreateNewChannel}

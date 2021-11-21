@@ -8,6 +8,7 @@ body {
   line-height: 1.6;
   margin: 0;
   min-height: 100vh;
+  background-color: #ebebeb;
 }
 
 a {
@@ -57,7 +58,7 @@ hr {
 }
 
 .btn {
-  background-color: #9f2bc1 !important;
+  background-color: #664e96 !important;
   border: none !important;
   outline: none !important;
   color: #fff !important;
@@ -67,7 +68,7 @@ hr {
 
 .btn-new {
   cursor: pointer;
-  /* outline: none; */
+  border-radius: 1rem;
 }
 .btn-new.outline {
   position: relative;
@@ -118,14 +119,14 @@ hr {
 }
 
 .text-purple {
-  color: #9f2bc1;
+  color: #664e96;
 }
 
 .MuiFormControl-root > label {
-  color: #9f2bc1 !important;
+  color: #664e96 !important;
 }
 .MuiFilledInput-underline:after {
-  border-bottom: 2px solid #9f2bc1 !important;
+  border-bottom: 2px solid #664e96 !important;
 }
 
 /* Scrollbar Styling */
@@ -178,14 +179,16 @@ button:focus {
   outline: none !important;
 }
 .PrivateTabIndicator-colorSecondary-9 {
-  background-color: #9f2bc1 !important;
+  background-color: #664e96 !important;
 }
 
 .Mui-focused
   .MuiOutlinedInput-root.Mui-focused
   .MuiOutlinedInput-notchedOutline {
-  border: 2px solid #9f2bc1;
+  border: 2px solid #664e96;
 }
-.PrivateNotchedOutline-root-1 {
-  top: 0 !important;
+.centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
