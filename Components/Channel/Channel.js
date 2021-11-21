@@ -19,6 +19,7 @@ const Channel = ({ channelId }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [newMessage, setNewMessage] = useState("");
   const [isJoined, setIsJoined] = useState(null);
+  const [hasCopied, setHasCopied] = useState(false);
 
   useEffect(() => {
     if (!!channelId) {
@@ -40,6 +41,24 @@ const Channel = ({ channelId }) => {
     if ([...data.members, data.createdBy].includes(user.username)) {
       setIsJoined(true);
     }
+  };
+
+  const handleCopy = () => {
+    const text = window.location.href;
+    let paragraph = document.createElement("textarea");
+    document.body.appendChild(paragraph);
+    let span_ = document.createElement("span");
+    span_.innerHTML = text;
+    paragraph.value = span_.innerHTML;
+    paragraph.select();
+    document.execCommand("copy");
+    document.body.removeChild(paragraph);
+
+    setHasCopied(true);
+
+    setTimeout(() => {
+      setHasCopied(false);
+    }, 2000);
   };
 
   const handleMessageChange = (e) => {
@@ -73,7 +92,7 @@ const Channel = ({ channelId }) => {
         <div className={style.head}>#{channedData.name}</div>
         <div className={style.created}>
           <div>
-            Created By:
+            <span className="px-1">Created By: </span>
             {channedData.createdBy && (
               <Link href={`/${channedData.createdBy}`}>
                 {channedData.createdBy}
@@ -81,7 +100,7 @@ const Channel = ({ channelId }) => {
             )}
           </div>
           <div>
-            Created On:
+            <span className="px-1">Created On: </span>
             {new Date(channedData.createdAt).toDateString()}
           </div>
         </div>
@@ -92,7 +111,9 @@ const Channel = ({ channelId }) => {
               aria-controls="panel1a-content"
               id="panel1a-header"
             >
-              <b>Members</b>
+              <b>
+                Members ({channedData.members && channedData.members.length})
+              </b>
             </AccordionSummary>
             <AccordionDetails>
               {channedData.members && channedData.members.length > 0 ? (
@@ -107,9 +128,14 @@ const Channel = ({ channelId }) => {
               )}
             </AccordionDetails>
           </Accordion>
+          <div className={style.invite} onClick={handleCopy}>
+            {hasCopied ? "Copied" : "Share Invite Link"}
+          </div>
         </div>
-        <strong className="mt-4 mb-1 text-center text-purple">Message</strong>
-        <div>
+        <strong className="mt-4 mb-1 text-center text-purple fs-4">
+          Message
+        </strong>
+        <div style={{ overflowY: "auto" }}>
           {channelPost.map((post, index) => (
             <div className={style.message} key={index}>
               <div>
