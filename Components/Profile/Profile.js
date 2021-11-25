@@ -2,21 +2,17 @@ import React, { useEffect, useState } from "react";
 import style from "../../styles/Profile.module.css";
 import FullPageLoader from "../FullPageLoader";
 import getUserInfo from "../auth";
-import getUsers, { createNewChannel } from "./helper/ProfileHelper";
+import getUsers from "./helper/ProfileHelper";
 import Link from "next/link";
-import { AddOutlined, ExitToAppRounded } from "@material-ui/icons";
-import { useRouter } from "next/dist/client/router";
-import { TextField } from "@material-ui/core";
+import { ExitToAppRounded } from "@material-ui/icons";
+import NOTFound from "../NotFound";
+import NewChannel from "../Channel/NewChannel";
 
 const Profile = ({ username }) => {
-  const [userData, setUserData] = useState({ data: {}, isLoading: false });
+  const [userData, setUserData] = useState({ data: {}, error: false });
   const [isSameUser, setIsSameUser] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [newChannelName, setNewChannelName] = useState({
-    name: "",
-    description: "",
-  });
-  const router = useRouter();
+
   useEffect(() => {
     if (!!username) {
       setIsSameUser(getUserInfo().user.username === username);
@@ -26,7 +22,11 @@ const Profile = ({ username }) => {
       if (isLoggedIn) {
         setIsLoading(true);
         getUsers(username).then((data) => {
-          setUserData({ data: data });
+          if (data.error) {
+            setUserData({ ...userData, error: true });
+          } else {
+            setUserData({ ...userData, data: data });
+          }
           setIsLoading(false);
         });
       }
@@ -38,15 +38,9 @@ const Profile = ({ username }) => {
     window.location.replace("/");
   };
 
-  const handleCreateNewChannel = () => {
-    if (newChannelName.name.trim() === "") return;
-    if (newChannelName.description.trim() === "") return;
-    createNewChannel(newChannelName).then((data) => {
-      if (!data.error) {
-        router.push(`/channel/${data.channel._id}`);
-      }
-    });
-  };
+  if (userData.error) {
+    return <NOTFound />;
+  }
 
   return (
     <main className="main">
@@ -91,43 +85,7 @@ const Profile = ({ username }) => {
                   </div>
                 )}
               </div>
-              {isSameUser && (
-                <div className={style.channel_new_grp}>
-                  <TextField
-                    label="Channel Name"
-                    variant="filled"
-                    value={newChannelName.name}
-                    onChange={(e) => {
-                      setNewChannelName({
-                        ...newChannelName,
-                        name: e.target.value,
-                      });
-                    }}
-                  />
-
-                  <TextField
-                    label="Description"
-                    variant="filled"
-                    multiline
-                    onChange={(e) => {
-                      setNewChannelName({
-                        ...newChannelName,
-                        description: e.target.value,
-                      });
-                    }}
-                    value={newChannelName.description}
-                    minRows={2}
-                    className="my-2"
-                  />
-
-                  <button
-                    className="btn-new outline white-purple"
-                    onClick={handleCreateNewChannel}
-                  >
-                    Create New Channel <AddOutlined />
-                  </button>
-                </div>
-              )}
+              {isSameUser && <NewChannel />}
             </div>
           </div>
         ) : (
