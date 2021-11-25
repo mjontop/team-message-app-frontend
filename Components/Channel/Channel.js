@@ -132,43 +132,52 @@ const Channel = ({ channelId }) => {
             {hasCopied ? "Copied" : "Share Invite Link"}
           </div>
         </div>
-        <strong className="mt-4 mb-1 text-center text-purple fs-4">
-          Message
-        </strong>
-        <div style={{ overflowY: "auto" }}>
-          {channelPost.map((post, index) => (
-            <div className={style.message} key={index}>
-              <div>
-                <b>
-                  <Link href={`/${post.postedBy}`}>{post.postedBy}</Link>
-                </b>
-                :<span className="px-1">{post.message}</span>
-              </div>
-              <div>
-                <small className="text-muted">
-                  {new Date(post.createdAt).toDateString()}
-                </small>
-              </div>
+        <div className={style.message_body}>
+          <div className="d-flex flex-column justify-content-center">
+            <strong className="text-center text-purple fs-4">Messages</strong>
+            <hr />
+          </div>
+
+          {channelPost.length > 0 ? (
+            <div style={{ overflowY: "auto" }}>
+              {channelPost.map((post, index) => (
+                <div className={style.message} key={index}>
+                  <div>
+                    <b>
+                      <Link href={`/${post.postedBy}`}>{post.postedBy}</Link>
+                    </b>
+                    :<span className="px-1">{post.message}</span>
+                  </div>
+                  <div>
+                    <small className="text-muted">
+                      {new Date(post.createdAt).toDateString()}
+                    </small>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+          ) : (
+            <div className="d-flex justify-content-center fs-2">
+              <b> This Chat has No Conversetion Yet </b>
+            </div>
+          )}
+          {!isJoined ? (
+            <div className={style.join} onClick={handleJoinChannel}>
+              Join
+            </div>
+          ) : (
+            <div className={style.newMessage}>
+              <textarea
+                placeholder="Write Message..."
+                onChange={handleMessageChange}
+                value={newMessage}
+              />
+              <button className="btn" onClick={handleSendMessage}>
+                Send
+              </button>
+            </div>
+          )}
         </div>
-        <hr />
-        {!isJoined ? (
-          <div className={style.join} onClick={handleJoinChannel}>
-            Join
-          </div>
-        ) : (
-          <div className={style.newMessage}>
-            <textarea
-              placeholder="Write Message..."
-              onChange={handleMessageChange}
-              value={newMessage}
-            />
-            <button className="btn" onClick={handleSendMessage}>
-              Send
-            </button>
-          </div>
-        )}
       </div>
     </main>
   );
