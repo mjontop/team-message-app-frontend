@@ -13,6 +13,8 @@ import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import getUserInfo from "../auth";
 import { getTimeSince } from "./helper/timeCalculator";
+import { useRouter } from "next/dist/client/router";
+import Loader from "../Loader";
 
 const Channel = ({ channelId }) => {
   const [channedData, setChannelData] = useState({});
@@ -21,7 +23,9 @@ const Channel = ({ channelId }) => {
   const [newMessage, setNewMessage] = useState("");
   const [isJoined, setIsJoined] = useState(null);
   const [hasCopied, setHasCopied] = useState(false);
+  const [isJoining, setIsJoining] = useState(false);
 
+  const router = useRouter();
   useEffect(() => {
     if (!!channelId) {
       setIsLoading(true);
@@ -77,9 +81,16 @@ const Channel = ({ channelId }) => {
   };
 
   const handleJoinChannel = () => {
+    const { isLoggedIn } = getUserInfo();
+    setIsJoining(true);
+    if (!isLoggedIn) {
+      router.push("/accounts/login");
+      return;
+    }
     joinChannel(channelId).then((data) => {
       if (!data.error) {
-        window.location.reload();
+        setIsJoined(true);
+        setIsJoining(false);
       }
     });
   };
@@ -151,7 +162,7 @@ const Channel = ({ channelId }) => {
                       <p className="pt-1">{post.message}</p>
                     </div>
                     <div>
-                      <small>{getTimeSince(post.createdAt)}</small>
+                      <small>{getTimeSince(post.createdAt)} ago</small>
                     </div>
                   </div>
                 ))}
@@ -163,9 +174,17 @@ const Channel = ({ channelId }) => {
             </div>
           )}
           {!isJoined ? (
-            <div className={style.join} onClick={handleJoinChannel}>
-              Join
-            </div>
+            <>
+              {!isJoining ? (
+                <div className={style.join} onClick={handleJoinChannel}>
+                  Join
+                </div>
+              ) : (
+                <div className="d-flex justify-content-center">
+                  <Loader />
+                </div>
+              )}
+            </>
           ) : (
             <div className={style.newMessage}>
               <textarea
