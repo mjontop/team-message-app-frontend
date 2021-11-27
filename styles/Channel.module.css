@@ -33,10 +33,28 @@
 .message {
   display: flex;
   justify-content: space-between;
-  margin: 0.3rem;
+  margin: 0.8rem 0.3rem;
+  width: fit-content;
+  align-items: flex-end;
+  background-color: #35bdd030;
+  padding: 0.4rem;
+  border-radius: 0.3rem;
 }
+.message_body_user  > p {
+  max-width: 30rem;
+}
+.message_body_user {
+  display: flex;
+  flex-direction: column;
+}
+
+.message_body_user > b > a {
+  text-decoration: none;
+}
+
 .message > div > small {
   font-size: 0.7rem;
+  color: gray;
 }
 .join {
   display: flex;

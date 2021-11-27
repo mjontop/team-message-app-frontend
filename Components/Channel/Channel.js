@@ -144,16 +144,14 @@ const Channel = ({ channelId }) => {
               <div>
                 {channelPost.map((post, index) => (
                   <div className={style.message} key={index}>
-                    <div>
+                    <div className={style.message_body_user}>
                       <b>
                         <Link href={`/${post.postedBy}`}>{post.postedBy}</Link>
                       </b>
-                      :<span className="px-1">{post.message}</span>
+                      <p className="pt-1">{post.message}</p>
                     </div>
                     <div>
-                      <small className="text-muted">
-                        {getTimeSince(post.createdAt)}
-                      </small>
+                      <small>{getTimeSince(post.createdAt)}</small>
                     </div>
                   </div>
                 ))}
