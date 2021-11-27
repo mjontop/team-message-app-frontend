@@ -12,6 +12,7 @@ import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import getUserInfo from "../auth";
+import { getTimeSince } from "./helper/timeCalculator";
 
 const Channel = ({ channelId }) => {
   const [channedData, setChannelData] = useState({});
@@ -151,7 +152,7 @@ const Channel = ({ channelId }) => {
                     </div>
                     <div>
                       <small className="text-muted">
-                        {new Date(post.createdAt).toDateString()}
+                        {getTimeSince(post.createdAt)}
                       </small>
                     </div>
                   </div>
