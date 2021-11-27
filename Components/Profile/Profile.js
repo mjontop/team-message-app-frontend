@@ -7,11 +7,13 @@ import Link from "next/link";
 import { ExitToAppRounded } from "@material-ui/icons";
 import NOTFound from "../NotFound";
 import NewChannel from "../Channel/NewChannel";
+import AddOutlined from "@material-ui/icons/AddOutlined";
 
 const Profile = ({ username }) => {
   const [userData, setUserData] = useState({ data: {}, error: false });
   const [isSameUser, setIsSameUser] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [creatingChannel, setCreatingChannel] = useState(false);
 
   useEffect(() => {
     if (!!username) {
@@ -75,7 +77,8 @@ const Profile = ({ username }) => {
                     {userData.data.channels.map((channel, index) => (
                       <div key={index} className={style.joined_channel_item}>
                         <span>‣ </span>
-                        <span className="centered">
+                        <span className="">
+                          #
                           <Link href={`/channel/${channel._id}`}>
                             {channel.name}
                           </Link>
@@ -85,7 +88,23 @@ const Profile = ({ username }) => {
                   </div>
                 )}
               </div>
-              {isSameUser && <NewChannel />}
+              {isSameUser && (
+                <>
+                  {!creatingChannel ? (
+                    <div>
+                      <button
+                        className="btn-new outline white-purple"
+                        onClick={() => setCreatingChannel(true)}
+                        style={{ height: "3rem", width: "100%", padding: 0 }}
+                      >
+                        Create New Channel <AddOutlined />
+                      </button>
+                    </div>
+                  ) : (
+                    <NewChannel />
+                  )}
+                </>
+              )}
             </div>
           </div>
         ) : (

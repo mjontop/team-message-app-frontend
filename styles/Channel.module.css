@@ -89,3 +89,14 @@
   flex: 18;
   justify-content: space-between;
 }
+.messageBox {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  flex: 1;
+}
+
+.messageBox > div {
+  max-height: 60vh;
+  overflow-y: auto;
+}

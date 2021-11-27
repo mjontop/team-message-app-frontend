@@ -61,6 +61,7 @@ const NewChannel = () => {
       <button
         className="btn-new outline white-purple"
         onClick={handleCreateNewChannel}
+        style={{ height: "3rem" }}
       >
         Create <AddOutlined />
       </button>

@@ -139,22 +139,24 @@ const Channel = ({ channelId }) => {
           </div>
 
           {channelPost.length > 0 ? (
-            <div style={{ overflowY: "auto" }}>
-              {channelPost.map((post, index) => (
-                <div className={style.message} key={index}>
-                  <div>
-                    <b>
-                      <Link href={`/${post.postedBy}`}>{post.postedBy}</Link>
-                    </b>
-                    :<span className="px-1">{post.message}</span>
+            <div className={style.messageBox}>
+              <div>
+                {channelPost.map((post, index) => (
+                  <div className={style.message} key={index}>
+                    <div>
+                      <b>
+                        <Link href={`/${post.postedBy}`}>{post.postedBy}</Link>
+                      </b>
+                      :<span className="px-1">{post.message}</span>
+                    </div>
+                    <div>
+                      <small className="text-muted">
+                        {new Date(post.createdAt).toDateString()}
+                      </small>
+                    </div>
                   </div>
-                  <div>
-                    <small className="text-muted">
-                      {new Date(post.createdAt).toDateString()}
-                    </small>
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           ) : (
             <div className="d-flex justify-content-center fs-2">
