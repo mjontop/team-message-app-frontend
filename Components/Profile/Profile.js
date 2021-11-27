@@ -4,7 +4,7 @@ import FullPageLoader from "../FullPageLoader";
 import getUserInfo from "../auth";
 import getUsers from "./helper/ProfileHelper";
 import Link from "next/link";
-import { ExitToAppRounded } from "@material-ui/icons";
+import {  ExitToAppRounded } from "@material-ui/icons";
 import NOTFound from "../NotFound";
 import NewChannel from "../Channel/NewChannel";
 import AddOutlined from "@material-ui/icons/AddOutlined";
@@ -51,7 +51,7 @@ const Profile = ({ username }) => {
           <div className={style.content}>
             <div className="d-flex justify-content-between">
               <span className="fs-3">
-                Hello, <strong>{username}</strong>
+                {isSameUser && "Hello,"} <strong>{username}</strong>
               </span>
               {isSameUser && (
                 <button

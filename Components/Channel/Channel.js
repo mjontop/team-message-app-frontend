@@ -15,6 +15,7 @@ import getUserInfo from "../auth";
 import { getTimeSince } from "./helper/timeCalculator";
 import { useRouter } from "next/dist/client/router";
 import Loader from "../Loader";
+import { ArrowBackIos } from "@material-ui/icons";
 
 const Channel = ({ channelId }) => {
   const [channedData, setChannelData] = useState({});
@@ -101,7 +102,11 @@ const Channel = ({ channelId }) => {
   return (
     <main className="main">
       <div className={style.body}>
-        <div className={style.head}>#{channedData.name}</div>
+        <div className={style.head}>
+          <ArrowBackIos className="cursor-ptr" onClick={() => router.back()} />
+          <span>#{channedData.name}</span> <div></div>
+        </div>
+        <hr />
         <div className={style.created}>
           <div>
             <span className="px-1">Created By: </span>
