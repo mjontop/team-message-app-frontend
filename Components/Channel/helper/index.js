@@ -55,5 +55,17 @@ export const sendMessage = async (channelId, message) => {
   }
 };
 
-// {{url}}/post/61976b64809f1c93da7bbd72
+export const createNewChannel = async (channel) => {
+  try {
+    const { data } = await Axios.post(`/channel/createChannel`, channel);
+    return data;
+  } catch (ex) {
+    console.log("Error in Creating User");
+    return {
+      error: true,
+      data: null,
+    };
+  }
+};
+
 export default getChannelInfo;

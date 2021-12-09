@@ -8,6 +8,7 @@ import loginHelper from "./loginHelper";
 import parseJwt from "../../utils/validateJWT";
 import Link from "next/link";
 import getUserInfo from "../auth";
+import Logo from "../Logo/Logo";
 
 const SignIn = () => {
   const router = useRouter();
@@ -67,8 +68,9 @@ const SignIn = () => {
     <main className="main">
       <div className={style.container}>
         <div className={style.login_body}>
+          <Logo />
           <p className="fs-1 text-center">
-            <strong>Welcome</strong>
+            <strong>Welcome, Back</strong>
           </p>
           <div className={style.login_inputs}>
             <TextField

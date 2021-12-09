@@ -1,4 +1,4 @@
-.header {
+.container {
   display: flex;
   flex: 1;
   width: 100%;
@@ -6,11 +6,49 @@
   justify-content: center;
 }
 
+.content {
+  box-shadow: 0 0 20px gray;
+  padding: 1rem;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  height: 60vh;
+}
+
 .main {
   max-width: max(40%, 400px);
 }
 
-.channel{
+.channel {
   display: flex;
   justify-content: space-between;
+}
+.channel > div {
+  width: 33%;
+}
+
+.channel > div > div > div > span > a {
+  color: #664e96 !important;
+  text-decoration: none !important;
+  font-size: 1.2rem;
+}
+.joined_channel_item {
+  display: flex;
+  justify-content: space-evenly;
+}
+.joined_channel_item > span {
+  flex: 10;
+}
+
+.joined_channel_item > span:first-child {
+  font-weight: bold;
+  color: #664e96;
+  font-size: 1.5rem;
+  flex: 1;
+}
+
+.joined_channel_grp {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
 }

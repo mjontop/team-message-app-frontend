@@ -12,6 +12,7 @@ import parseJwt from "../../utils/validateJWT";
 import Link from "next/link";
 import { TextField } from "@material-ui/core";
 import getUserInfo from "../auth";
+import Logo from "../Logo/Logo";
 
 const Register = () => {
   const router = useRouter();
@@ -93,6 +94,7 @@ const Register = () => {
     <main className="main">
       <div className={style.container}>
         <div className={style.login_body}>
+          <Logo />
           <p className="fs-1 text-center">
             <strong>Welcome</strong>
           </p>

@@ -12,6 +12,10 @@ import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import getUserInfo from "../auth";
+import { getTimeSince } from "./helper/timeCalculator";
+import { useRouter } from "next/dist/client/router";
+import Loader from "../Loader";
+import { ArrowBackIos } from "@material-ui/icons";
 
 const Channel = ({ channelId }) => {
   const [channedData, setChannelData] = useState({});
@@ -19,7 +23,10 @@ const Channel = ({ channelId }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [newMessage, setNewMessage] = useState("");
   const [isJoined, setIsJoined] = useState(null);
+  const [hasCopied, setHasCopied] = useState(false);
+  const [isJoining, setIsJoining] = useState(false);
 
+  const router = useRouter();
   useEffect(() => {
     if (!!channelId) {
       setIsLoading(true);
@@ -42,6 +49,24 @@ const Channel = ({ channelId }) => {
     }
   };
 
+  const handleCopy = () => {
+    const text = window.location.href;
+    let paragraph = document.createElement("textarea");
+    document.body.appendChild(paragraph);
+    let span_ = document.createElement("span");
+    span_.innerHTML = text;
+    paragraph.value = span_.innerHTML;
+    paragraph.select();
+    document.execCommand("copy");
+    document.body.removeChild(paragraph);
+
+    setHasCopied(true);
+
+    setTimeout(() => {
+      setHasCopied(false);
+    }, 2000);
+  };
+
   const handleMessageChange = (e) => {
     setNewMessage(e.target.value);
   };
@@ -57,9 +82,16 @@ const Channel = ({ channelId }) => {
   };
 
   const handleJoinChannel = () => {
+    const { isLoggedIn } = getUserInfo();
+    setIsJoining(true);
+    if (!isLoggedIn) {
+      router.push("/accounts/login");
+      return;
+    }
     joinChannel(channelId).then((data) => {
       if (!data.error) {
-        window.location.reload();
+        setIsJoined(true);
+        setIsJoining(false);
       }
     });
   };
@@ -70,10 +102,14 @@ const Channel = ({ channelId }) => {
   return (
     <main className="main">
       <div className={style.body}>
-        <div className={style.head}>#{channedData.name}</div>
+        <div className={style.head}>
+          <ArrowBackIos className="cursor-ptr" onClick={() => router.back()} />
+          <span>#{channedData.name}</span> <div></div>
+        </div>
+        <hr />
         <div className={style.created}>
           <div>
-            Created By:
+            <span className="px-1">Created By: </span>
             {channedData.createdBy && (
               <Link href={`/${channedData.createdBy}`}>
                 {channedData.createdBy}
@@ -81,7 +117,7 @@ const Channel = ({ channelId }) => {
             )}
           </div>
           <div>
-            Created On:
+            <span className="px-1">Created On: </span>
             {new Date(channedData.createdAt).toDateString()}
           </div>
         </div>
@@ -92,7 +128,9 @@ const Channel = ({ channelId }) => {
               aria-controls="panel1a-content"
               id="panel1a-header"
             >
-              <b>Members</b>
+              <b>
+                Members ({channedData.members && channedData.members.length})
+              </b>
             </AccordionSummary>
             <AccordionDetails>
               {channedData.members && channedData.members.length > 0 ? (
@@ -107,42 +145,64 @@ const Channel = ({ channelId }) => {
               )}
             </AccordionDetails>
           </Accordion>
+          <div className={style.invite} onClick={handleCopy}>
+            {hasCopied ? "Copied" : "Share Invite Link"}
+          </div>
         </div>
-        <strong className="mt-4 mb-1 text-center text-purple">Message</strong>
-        <div>
-          {channelPost.map((post, index) => (
-            <div className={style.message} key={index}>
+        <div className={style.message_body}>
+          <div className="d-flex flex-column justify-content-center">
+            <strong className="text-center text-purple fs-4">Messages</strong>
+            <hr />
+          </div>
+
+          {channelPost.length > 0 ? (
+            <div className={style.messageBox}>
               <div>
-                <b>
-                  <Link href={`/${post.postedBy}`}>{post.postedBy}</Link>
-                </b>
-                :<span className="px-1">{post.message}</span>
-              </div>
-              <div>
-                <small className="text-muted">
-                  {new Date(post.createdAt).toDateString()}
-                </small>
+                {channelPost.map((post, index) => (
+                  <div className={style.message} key={index}>
+                    <div className={style.message_body_user}>
+                      <b>
+                        <Link href={`/${post.postedBy}`}>{post.postedBy}</Link>
+                      </b>
+                      <p className="pt-1">{post.message}</p>
+                    </div>
+                    <div>
+                      <small>{getTimeSince(post.createdAt)} ago</small>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-          ))}
+          ) : (
+            <div className="d-flex justify-content-center fs-2">
+              <b> This Chat has No Conversetion Yet </b>
+            </div>
+          )}
+          {!isJoined ? (
+            <>
+              {!isJoining ? (
+                <div className={style.join} onClick={handleJoinChannel}>
+                  Join
+                </div>
+              ) : (
+                <div className="d-flex justify-content-center">
+                  <Loader />
+                </div>
+              )}
+            </>
+          ) : (
+            <div className={style.newMessage}>
+              <textarea
+                placeholder="Write Message..."
+                onChange={handleMessageChange}
+                value={newMessage}
+              />
+              <button className="btn" onClick={handleSendMessage}>
+                Send
+              </button>
+            </div>
+          )}
         </div>
-        <hr />
-        {!isJoined ? (
-          <div className={style.join} onClick={handleJoinChannel}>
-            Join
-          </div>
-        ) : (
-          <div className={style.newMessage}>
-            <textarea
-              placeholder="Write Message..."
-              onChange={handleMessageChange}
-              value={newMessage}
-            />
-            <button className="btn" onClick={handleSendMessage}>
-              Send
-            </button>
-          </div>
-        )}
       </div>
     </main>
   );

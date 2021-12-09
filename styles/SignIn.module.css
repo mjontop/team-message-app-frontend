@@ -26,22 +26,29 @@
 .login_inputs {
   flex: 5;
   text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .login_btn {
   flex: 1;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .login_btn > button {
   width: 70% !important;
   border-radius: 10rem !important;
   box-shadow: 6px 6px 12px #747474, -6px -6px 12px #ffffff;
+  cursor: pointer;
 }
 
 .login_body > p {
   flex: 1;
   text-align: center;
 }
+
 .footer {
   display: flex;
   justify-content: center;

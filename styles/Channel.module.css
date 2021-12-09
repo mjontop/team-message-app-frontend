@@ -4,29 +4,59 @@
   display: flex;
   flex-direction: column;
   padding: 1rem;
+  max-height: 90vh;
+  min-height: 60vh;
 }
 .head {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   font-size: 1.5rem;
   font-weight: bold;
+  flex: 1;
 }
 
 .created {
   display: flex;
   justify-content: space-between;
+  flex: 1;
 }
 
 .accordin {
-  margin-top: 0.2rem;
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: flex-start;
+  flex: 1;
 }
 .message {
   display: flex;
   justify-content: space-between;
+  margin: 0.8rem 0.3rem;
+  width: fit-content;
+  align-items: flex-end;
+  background-color: #35bdd030;
+  padding: 0.4rem;
+  border-radius: 0.3rem;
+  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
+    0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
 }
+.message_body_user > p {
+  max-width: 30rem;
+}
+.message_body_user {
+  display: flex;
+  flex-direction: column;
+}
+
+.message_body_user > b > a {
+  text-decoration: none;
+}
+
 .message > div > small {
   font-size: 0.7rem;
+  color: gray;
 }
 .join {
   display: flex;
@@ -51,8 +81,42 @@
   border: 0.5px solid gray;
   resize: verticle;
   padding: 0.8rem;
+  border-radius: 0.5rem;
 }
 
 .newMessage > .btn {
   flex: 1;
+}
+.invite {
+  box-shadow: 0 0 5px gray;
+  border-radius: 0.3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0.3;
+  padding: 0.7rem 0;
+  cursor: pointer;
+  font-size: 0.8rem;
+  user-select: none;
+}
+.invite:hover {
+  background-color: #664e9695;
+  color: #fff;
+}
+.message_body {
+  display: flex;
+  flex-direction: column;
+  flex: 18;
+  justify-content: space-between;
+}
+.messageBox {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  flex: 1;
+}
+
+.messageBox > div {
+  max-height: 60vh;
+  overflow-y: auto;
 }
